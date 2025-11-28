@@ -40,7 +40,13 @@ param (
 )
 
 # Import SQL Server module
-Import-Module SqlServer -ErrorAction SilentlyContinue
+try {
+    Import-Module SqlServer -ErrorAction Stop
+}
+catch {
+    Write-Warning "SqlServer module not found. Install with: Install-Module SqlServer"
+    Write-Warning "Attempting to continue without module..."
+}
 
 $healthReport = @{
     ServerName = $ServerInstance

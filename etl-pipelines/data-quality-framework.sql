@@ -127,7 +127,7 @@ BEGIN
         @TotalRows OUTPUT, @PassedRows OUTPUT;
 
     SET @FailedRows = @TotalRows - @PassedRows;
-    SET @PassRate = CASE WHEN @TotalRows > 0 THEN (CAST(@PassedRows AS DECIMAL(18,2)) / @TotalRows) * 100 ELSE 100 END;
+    SET @PassRate = CASE WHEN @TotalRows > 0 THEN CAST((CAST(@PassedRows AS DECIMAL(5,2)) / @TotalRows) * 100 AS DECIMAL(5,2)) ELSE 100.00 END;
 
     -- Determine status
     SET @Status = CASE 

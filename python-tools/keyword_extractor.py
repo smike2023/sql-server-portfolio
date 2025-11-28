@@ -235,11 +235,19 @@ def analyze_job_description(job_text: str) -> Dict:
     total_skills = len(all_keywords)
     categories_found = len(analysis["keywords_by_category"])
     
+    # Calculate experience range
+    exp_requirements = analysis["experience_requirements"]
+    if exp_requirements:
+        years_list = [e[1] for e in exp_requirements]
+        experience_range = f"{min(years_list, default=0)}-{max(years_list, default=0)} years"
+    else:
+        experience_range = "Not specified"
+    
     analysis["summary"] = {
         "total_technical_skills": total_skills,
         "categories_covered": categories_found,
         "primary_focus": list(analysis["keywords_by_category"].keys())[:3],
-        "experience_range": f"{min([e[1] for e in analysis['experience_requirements']], default=0)}-{max([e[1] for e in analysis['experience_requirements']], default=0)} years" if analysis['experience_requirements'] else "Not specified"
+        "experience_range": experience_range
     }
     
     return analysis
