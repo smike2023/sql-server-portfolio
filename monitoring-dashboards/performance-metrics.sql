@@ -44,8 +44,7 @@ SELECT
 FROM sys.dm_exec_cached_plans
 UNION ALL
 SELECT 
-    'Procedure Cache' AS MemoryType,
-    objtype + ': ' + CAST(COUNT(*) AS VARCHAR(20)),
+    'Procedure Cache - ' + objtype AS MemoryType,
     SUM(size_in_bytes) / 1024.0 / 1024.0 AS MemoryMB
 FROM sys.dm_exec_cached_plans
 GROUP BY objtype;
